@@ -21,6 +21,9 @@ public class Index {
 	UserRepo userRepo;
 	
 	@Autowired
+	StudentRepo studentRepo;
+	
+	@Autowired
 	ParentRepo parentRepo;
 	
 	@Autowired
@@ -129,6 +132,47 @@ public class Index {
 		classroomRepo.save(classprov);
 		return "{\"anno\":\"" + classprov.getYear() + 
 				"\", \"sezione\": \"" + classprov.getSection() + "\"}";
+	}
+	
+	@RequestMapping(value = "/insert", method = RequestMethod.POST, consumes = {
+			MediaType.APPLICATION_JSON_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody String insert(@RequestBody Data data) {
+		
+		User u = new User();
+		u.setUsername(data.getUsername());
+		u.setPassword(data.getPassword());
+		
+		if(data.getPrivilege() == 1) {
+			Student s = new Student();
+			s.setName(data.getName());
+			s.setSurname(data.getSurname());
+			s.setCF(data.getCF());
+			s.setBirth_place(data.getBirth_place());
+			studentRepo.save(s);
+		}
+		else if(data.getPrivilege() == 2) {
+			Parent p = new Parent();
+			p.setName(data.getName());
+			p.setSurname(data.getSurname());
+			p.setCF(data.getCF());
+			p.setBirth_place(data.getBirth_place());
+			parentRepo.save(p);
+		}
+		else if(data.getPrivilege() == 3) {
+			Teacher t = new Teacher();
+			t.setName(data.getName());
+			t.setSurname(data.getSurname());
+			t.setCF(data.getCF());
+			t.setBirth_place(data.getBirth_place());
+			teacherRepo.save(t);
+		}
+		else {
+			return "{\"message\":\"false\"}";
+		}
+		
+		userRepo.save(u);
+		
+		return "{\"message\":\"true\"}";
 	}
 	
 

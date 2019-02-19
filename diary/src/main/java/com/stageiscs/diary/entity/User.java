@@ -18,19 +18,28 @@ public class User {
 	
 	private String username;
 	private String password;
-	private String privilegio;
+	private int privilege;
 	private String jwt;
+	
+	@OneToOne(mappedBy = "user")
+	private Student student;
+	
+	@OneToOne(mappedBy = "user")
+	private Teacher teacher;
+	
+	@OneToOne(mappedBy = "user")
+	private Parent parent;
 	
 	public User() {
 		super();
 	}
 
-	public User(Long idUtente, String username,String password, String privilegio) {
+	public User(Long idUtente, String username,String password, int privilege) {
 		super();
 		this.idUtente = idUtente;
 		this.username = username;
 		this.password = password;
-		this.privilegio = privilegio;
+		this.privilege = privilege;
 	}
 
 	public Long getIdUtente() {
@@ -58,12 +67,12 @@ public class User {
 		this.password = password;
 	}
 
-	public String getPrivilegio() {
-		return privilegio;
+	public int getPrivilege() {
+		return privilege;
 	}
 
-	public void setPrivilegio(String privilegio) {
-		this.privilegio = privilegio;
+	public void setPrivilege(int privilege) {
+		this.privilege = privilege;
 	}
 
 	public String getJwt() {

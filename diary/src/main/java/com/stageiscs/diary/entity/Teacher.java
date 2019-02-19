@@ -14,6 +14,8 @@ public class Teacher {
 	
 	private String name;
 	private String surname;
+	private String CF;
+	private String birth_place;
 	
 	
 	@ManyToMany(targetEntity = Matter.class)
@@ -32,15 +34,21 @@ public class Teacher {
 	
 	@OneToMany(targetEntity = Task.class, mappedBy = "teacher")
 	private List<Task> tasks = new ArrayList<Task>();
+	
+	@OneToOne
+	@JoinColumn(name = "user")
+	private User user;
 
 	public Teacher() {
 		super();
 	}
 	
-	public Teacher(Long idTeacher, String name, String surname) {
+	public Teacher(Long idTeacher, String name, String surname, String CF, String birth_place) {
 		this.idTeacher = idTeacher;
 		this.name = name;
 		this.surname = surname;
+		this.setCF(CF);
+		this.setBirth_place(birth_place);
 	}
 	
 	public Long getIdTeacher() {
@@ -65,6 +73,30 @@ public class Teacher {
 	
 	public void setSurname(String surname) {
 		this.surname = surname;
+	}
+
+	public String getBirth_place() {
+		return birth_place;
+	}
+
+	public void setBirth_place(String birth_place) {
+		this.birth_place = birth_place;
+	}
+
+	public String getCF() {
+		return CF;
+	}
+
+	public void setCF(String cF) {
+		CF = cF;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 }

@@ -1,11 +1,6 @@
 package com.stageiscs.diary.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
+import javax.persistence.*;
 @Entity
 public class Parent {
 
@@ -16,19 +11,25 @@ public class Parent {
 	
 	private String name;
 	private String surname;
+	private String CF;
+	private String birth_place;
 	
-	private Long user;
+	
+	@OneToOne
+	@JoinColumn(name = "user")
+	private User user;
 	
 	
 	public Parent() {
 		super();
 	}
 	
-	public Parent(Long idParent, String name, String surname) {
-		super();
+	public Parent(Long idParent, String name, String surname, String CF, String birth_place) {
 		this.idParent = idParent;
-		this.setName(name);
-		this.setSurname(surname);
+		this.name = name;
+		this.surname = surname;
+		this.setCF(CF);
+		this.setBirth_place(birth_place);
 	}
 
 	public String getName() {
@@ -46,12 +47,29 @@ public class Parent {
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
+
+	public String getCF() {
+		return CF;
+	}
+
+	public void setCF(String cF) {
+		CF = cF;
+	}
+
+	public String getBirth_place() {
+		return birth_place;
+	}
+
+	public void setBirth_place(String birth_place) {
+		this.birth_place = birth_place;
+	}
 	
-	public Long getUser() {
+	public User getUser() {
 		return user;
 	}
 	
-	public void setUser(Long user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
+
 }
